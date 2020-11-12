@@ -1,0 +1,52 @@
+load featuremodel-checker.maude
+
+mod DWINPUT is including FEATUREMODEL-CHECKER . protecting STRING + NAT .
+  subsorts String < FeatureID GroupID Name .
+  subsort Nat < TimePoint .
+  op model : -> FeatureModel .
+  op plan : -> Plans .
+  op log : -> Log .
+  op init : -> TimeConfiguration .
+  eq init = currentTime: 0 C: model # done # log plan: plan .
+
+  eq model = FM("Car", ["Car" -> f("Car", noParent, noG, MANDATORY)]) .
+
+  var TC : TimeConfiguration .
+  var F : Formula .
+
+  eq plan =
+  at 0 do
+  addGroup("Car", "Car1", AND)
+  addFeature("Infotainment", "Infotainment", "Car1", OPTIONAL)
+  addFeature("Sensors", "Sensors", "Car1", OPTIONAL) 
+  addGroup("Infotainment", "Infotainment1", AND)
+  addFeature("Button Interface", "Button Interface", "Infotainment1", MANDATORY)
+  ; ;;
+
+  at 1 do
+  removeFeature("Button Interface")
+  addFeature("Touch Screen", "Touch Screen", "Infotainment1", OPTIONAL)
+  changeFeatureType("Touch Screen", MANDATORY)
+  changeFeatureType("Infotainment", MANDATORY)
+  addGroup("Sensors", "Sensors1", OR)
+  addFeature("Front Sensors", "Front Sensors", "Sensors1", OPTIONAL)
+  addFeature("Rear Sensors", "Rear Sensors", "Sensors1", OPTIONAL)
+  ; .
+
+endm
+
+*** G1 ***
+red check(init, (feature "Front Sensors" exists andalso feature "Rear Sensors" exists) starts between feature "Sensors" exists starts and 2) . 
+
+*** G2 ***
+red check(init, feature "Touch Screen" exists starts when feature "Button Interface" exists stops) .
+
+*** G3 ***
+red check(init, feature "Sensors" has type MANDATORY starts at 1) .
+
+*** G4 ***
+red check(init, feature "WiFi" exists starts between 3 and 6) .
+
+q
+
+
