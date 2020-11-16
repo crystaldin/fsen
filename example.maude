@@ -35,16 +35,16 @@ mod DWINPUT is including FEATUREMODEL-CHECKER . protecting STRING + NAT .
 
 endm
 
-*** G1 ***
-red check(init, (feature "Front Sensors" exists andalso feature "Rear Sensors" exists) starts between feature "Sensors" exists starts and 2) . 
+*** C1 ***
+red check(init, (feature "Front Sensors" exists starts andalso feature "Rear Sensors" exists starts) between feature "Sensors" exists starts and 2) . 
 
-*** G2 ***
+*** C2 ***
 red check(init, feature "Touch Screen" exists starts when feature "Button Interface" exists stops) .
 
-*** G3 ***
+*** C3 ***
 red check(init, feature "Sensors" has type MANDATORY starts at 1) .
 
-*** G4 ***
+*** C4 ***
 red check(init, feature "WiFi" exists starts between 3 and 6) .
 
 q
