@@ -480,8 +480,7 @@ mod FEATURE-MODEL-TIME is protecting FEATURE-MODEL .
   rl [finish-plan] :
       currentTime: CT      C: FM(RootFid, FT) # done # L     plan: end
     =>
-      currentTime: endTime C: FM(RootFid, FT) # done # empty plan: end
-    [print "PLAN CORRECT"] .
+      currentTime: endTime C: FM(RootFid, FT) # done # empty plan: end .
 
   --- Stop if error has occured. Print error message
   eq [paradox] :
