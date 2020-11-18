@@ -7,7 +7,8 @@ Maude> in example.maude
 ==========================================
 mod DWINPUT
 ==========================================
-reduce in DWINPUT : check(init, feature "Front Sensors" exists starts andalso feature "Rear Sensors" exists starts between feature "Sensors" exists starts and 2) .
+reduce in DWINPUT : check(init, feature "Front Sensors" exists starts andalso feature "Rear Sensors" exists starts 
+between feature "Sensors" exists starts and 2) .
 PASS
 result Bool: true
 ==========================================
